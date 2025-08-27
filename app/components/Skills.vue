@@ -8,7 +8,7 @@
       <span><CodePunctuation>- </CodePunctuation><CodeString>"Vue.js"</CodeString></span>
       <span><CodePunctuation>- </CodePunctuation><CodeString>"Nuxt.js"</CodeString></span>
       <span><CodePunctuation>- </CodePunctuation><CodeString>"CSS3"</CodeString></span>
-      <span><CodePunctuation>- </CodePunctuation><CodeString>"TailwindCSS v4.1"</CodeString></span>
+      <span><CodePunctuation>- </CodePunctuation><CodeString>"TailwindCSS"</CodeString></span>
       <span><CodePunctuation>- </CodePunctuation><CodeString>"Git"</CodeString></span>
       <span><CodePunctuation>- </CodePunctuation><CodeString>"Mongo DB"</CodeString></span>
     </div>

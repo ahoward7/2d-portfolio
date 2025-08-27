@@ -4,17 +4,18 @@
 
 @theme {
   --font-code: 'Fira', monospace;
-  --color-code-string: #98c379;
-  --color-code-number: #d19a66;
+  --color-code-string: #94C76D;
+  --color-code-number: #D98A3B;
   --color-code-boolean: #d19a66;
   --color-code-null: #56b6c2;
-  --color-code-keyword: #c678dd;
-  --color-code-function: #61afef;
-  --color-code-variable: #e06c75;
-  --color-code-property: #abb2bf;
-  --color-code-operator: #56b6c2;
+  --color-code-keyword: #C756E8;
+  --color-code-function: #48ACFA;
+  --color-code-variable: #E04351;
+  --color-code-property: #CCCCCC;
+  --color-code-operator: #DE50A5;
   --color-code-punctuation: #abb2bf;
-  --color-code-comment: #7f848e;
+  --color-code-comment: #EDED2F;
+  --color-code-url: #61afef;
 }
 
 @font-face {

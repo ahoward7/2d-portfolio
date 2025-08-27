@@ -17,6 +17,7 @@ type Token =
   | 'code-operator'
   | 'code-punctuation'
   | 'code-comment'
+  | 'code-url'
 
 const { token, tag = 'code' } = defineProps<{
   token: Token
@@ -34,7 +35,8 @@ const TOKEN_CLASSES: Record<Token, string> = {
   'code-property': 'text-code-property',
   'code-operator': 'text-code-operator',
   'code-punctuation': 'text-code-punctuation',
-  'code-comment': 'text-code-comment'
+  'code-comment': 'text-code-comment',
+  'code-url': 'text-code-url'
 }
 
 const tokenClass = computed(() => TOKEN_CLASSES[token])
