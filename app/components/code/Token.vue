@@ -1,11 +1,10 @@
 <template>
-  <component :is="tag" class="font-ibmmon" :class="tokenClass" v-bind="$attrs">
+  <component :is="tag" class="font-code" :class="tokenClass" v-bind="$attrs">
     <slot />
   </component>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 type Token =
   | 'code-string'
   | 'code-number'

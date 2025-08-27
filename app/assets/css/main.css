@@ -3,8 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-robmon: 'Roboto Mono', monospace;
-  --font-ibmmon: 'IBM Mono', monospace;
+  --font-code: 'Fira', monospace;
   --color-code-string: #98c379;
   --color-code-number: #d19a66;
   --color-code-boolean: #d19a66;
@@ -19,16 +18,8 @@
 }
 
 @font-face {
-  font-family: 'Roboto Mono';
-  src: url('/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'IBM Mono';
-  src: url('/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf') format('truetype');
+  font-family: 'Fira';
+  src: url('/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
