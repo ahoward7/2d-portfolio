@@ -32,6 +32,7 @@
             rows="1"
             @input="autoGrow"
             @keydown.enter.exact.prevent="onEnter"
+            @keydown.ctrl.c.prevent="onCtrlC"
           />
           <div v-if="confirming" class="text-zinc-200 pl-[19px]">
             Confirm send? (y/n):
@@ -42,6 +43,7 @@
               maxlength="1"
               autofocus
               @keydown.enter.prevent="onConfirm"
+              @keydown.ctrl.c.prevent="onCtrlC"
               @input="onConfirmInput"
             >
           </div>
@@ -81,7 +83,25 @@ function resetConfirm() {
   confirmInput.value = ''
 }
 
+function clearConsole() {
+  history.value = []
+  message.value = ''
+  resetConfirm()
+  nextTick(() => inputEl.value?.focus())
+}
+
+function onCtrlC() {
+  append(message.value, 'Aborted', confirmInput.value || undefined)
+  message.value = ''
+  resetConfirm()
+  nextTick(() => inputEl.value?.focus())
+}
+
 function onEnter() {
+  if (message.value.trim().toLowerCase() === 'clear' && !confirming.value) {
+    clearConsole()
+    return
+  }
   if (!confirming.value) {
     if (!message.value.trim()) {
       append('', 'Error: Message cannot be empty.')
