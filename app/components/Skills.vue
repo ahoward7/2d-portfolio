@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-2">
-    <div>{{ `<div class="flex flex-col gap-1 text-xl p-2">` }}</div>
-    <div class="flex flex-col gap-1 text-xl pl-7 p-2">
+    <div>{{ `<div class="flex flex-col gap-1 text-lg p-2">` }}</div>
+    <div class="flex flex-col gap-1 text-lg pl-7 p-2">
       <CodeComment>// Skills</CodeComment>
       <span><CodePunctuation>- </CodePunctuation><CodeString>"JavaScript"</CodeString></span>
       <span><CodePunctuation>- </CodePunctuation><CodeString>"TypeScript"</CodeString></span>
