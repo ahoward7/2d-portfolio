@@ -4,9 +4,9 @@
       {{ `<div class="text-5xl p-2">` }}
     </div>
     <!-- Small to md: function with brackets -->
-    <div class="block lg:hidden text-base md:text-2xl pl-2 p-1">
+    <div class="block lg:hidden text-sm md:text-2xl pl-2 p-1">
       <div>
-        <CodeKeyword>function </CodeKeyword>
+        <CodeKeyword>const </CodeKeyword>
         <CodeFunction>combine</CodeFunction>
         <CodePunctuation>(</CodePunctuation>
         <CodeVariable>Creativity</CodeVariable>

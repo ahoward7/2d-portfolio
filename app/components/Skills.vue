@@ -3,7 +3,7 @@
     <div class="text-xs lg:text-base">
       {{ `<div class="flex flex-col gap-1>` }}
     </div>
-    <div class="flex flex-col gap-1 text-sm md:text-base xl:text-lg pl-2 lg:pl-7 p-1 lg:p-2">
+    <div class="flex flex-col gap-1 text-xs md:text-base xl:text-lg pl-2 lg:pl-7 p-1 lg:p-2">
       <CodeComment>// Skills</CodeComment>
       <span><CodePunctuation>- </CodePunctuation><CodeString>"JavaScript"</CodeString></span>
       <span><CodePunctuation>- </CodePunctuation><CodeString>"TypeScript"</CodeString></span>
