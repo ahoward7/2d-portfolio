@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-1 lg:gap-2">
-    <div class="text-xs lg:text-base">
+    <div class="text-[10px] lg:text-base">
       {{ `<div class="text-5xl p-2">` }}
     </div>
     <!-- Small to md: function with brackets -->
@@ -36,7 +36,7 @@
       <CodeString>"Web Developer"</CodeString>
       <CodePunctuation>;</CodePunctuation>
     </div>
-    <div class="text-xs lg:text-base">
+    <div class="text-[10px] lg:text-base">
       {{ `</div>` }}
     </div>
   </div>

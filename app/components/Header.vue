@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-1 lg:gap-2">
-    <div class="text-xs lg:text-base">
+    <div class="text-[10px] lg:text-base">
       {{ `<div class="text-9xl p-4">` }}
     </div>
     <div class="text-3xl md:text-7xl lg:text-8xl 2xl:text-9xl pl-1 lg:px-4 -mt-1 flex">
@@ -23,7 +23,7 @@
         ;
       </CodePunctuation>
     </div>
-    <div class="text-xs lg:text-base">
+    <div class="text-[10px] lg:text-base">
       {{ `</div>` }}
     </div>
   </div>
