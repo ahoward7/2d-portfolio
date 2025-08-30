@@ -26,7 +26,7 @@
           <label class="text-sky-300">$ Type a message:</label>
           <textarea
             ref="inputEl"
-            v-model="message"
+            v-model="userInput"
             class="h-fit pl-[19px] text-zinc-200 border-none rounded outline-none"
             required
             rows="1"
@@ -61,12 +61,14 @@
 </template>
 
 <script setup lang="ts">
-const message = ref('')
+const userInput = ref('')
 const history = ref<HistoryEntry[]>([])
 const inputEl = ref<HTMLTextAreaElement | null>(null)
 const confirming = ref(false)
 const confirmInput = ref('')
 const confirmEl = ref<HTMLInputElement | null>(null)
+// Mail composable provided by nuxt-mail
+const mail = useMail()
 
 // Utilities
 function focusRef<T extends HTMLElement>(el: Ref<T | null>) {
@@ -88,7 +90,7 @@ function resetConfirm() {
 
 function resetMessageAndFocus() {
   resetConfirm()
-  message.value = ''
+  userInput.value = ''
   focusRef(inputEl)
 }
 
@@ -107,17 +109,27 @@ watch(() => history.value.length, async () => {
   scrollBottom()
 })
 
+function resolveCommand(raw: string): boolean {
+  const cmd = raw.trim()
+  switch (cmd.toLowerCase()) {
+    case 'clear':
+      clearConsole()
+      return true
+    default:
+      return false
+  }
+}
+
 // Interaction functions
 function onEnter() {
-  const text = message.value.trim()
-  if (text.toLowerCase() === 'clear' && !confirming.value) {
-    clearConsole()
-    return
-  }
+  const text = userInput.value.trim()
   if (!confirming.value) {
     if (!text) {
       append('', 'Error: Message cannot be empty.')
       focusRef(inputEl)
+      return
+    }
+    if (resolveCommand(text)) {
       return
     }
     confirming.value = true
@@ -143,12 +155,38 @@ function onConfirm(override: boolean = false) {
 }
 
 function handleSubmit(confirmValue?: string) {
-  append(message.value, 'Message not sent: Feature is still in development', confirmValue)
-  resetMessageAndFocus()
+  append(userInput.value, 'Sending…', confirmValue)
+  const idx = history.value.length - 1
+  if (idx < 0) {
+    resetMessageAndFocus()
+    return
+  }
+  const entry = history.value[idx]!
+
+  const subject = 'Portfolio Contact'
+  const text = userInput.value
+
+  if (!mail || typeof (mail as any).send !== 'function') {
+    entry.response = 'Error: Mail module unavailable.'
+    resetMessageAndFocus()
+    return
+  }
+
+  Promise.resolve(mail.send({ subject, text }))
+    .then(() => {
+      entry.response = 'Message sent successfully.'
+    })
+    .catch((err: unknown) => {
+      const msg = err instanceof Error ? err.message : 'Unknown error'
+      entry.response = `Failed to send message: ${msg}`
+    })
+    .finally(() => {
+      resetMessageAndFocus()
+    })
 }
 
 function onCtrlC() {
-  append(message.value, 'Aborted', confirmInput.value || undefined)
+  append(userInput.value, 'Aborted', confirmInput.value || undefined)
   resetMessageAndFocus()
 }
 
