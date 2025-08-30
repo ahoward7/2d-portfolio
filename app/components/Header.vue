@@ -3,7 +3,7 @@
     <div class="text-[10px] lg:text-base">
       {{ `<div class="text-9xl p-4">` }}
     </div>
-    <div class="text-3xl md:text-7xl lg:text-8xl 2xl:text-9xl pl-1 lg:px-4 -mt-1 flex">
+    <div class="text-4xl md:text-7xl lg:text-8xl 2xl:text-9xl pl-1 lg:px-4 -mt-1 flex">
       <CodeString>
         "<ClientOnly>
           <span class="relative">
