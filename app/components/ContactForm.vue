@@ -8,7 +8,7 @@
     </div>
     <div>
       <div class="p-4 flex flex-col gap-2">
-        <div v-for="entry, index in history" :key="index">
+        <div v-for="(entry, index) in history" :key="index">
           <div class="h-5 text-sky-300">
             $ Type a message:
           </div>
@@ -62,20 +62,23 @@
 
 <script setup lang="ts">
 const message = ref('')
-const history = ref<{ message: string; response: string; confirm?: string }[]>([])
+const history = ref<HistoryEntry[]>([])
 const inputEl = ref<HTMLTextAreaElement | null>(null)
-const historyEl = ref<HTMLElement | null>(null)
 const confirming = ref(false)
 const confirmInput = ref('')
 const confirmEl = ref<HTMLInputElement | null>(null)
 
+// Utilities
+function focusRef<T extends HTMLElement>(el: Ref<T | null>) {
+  nextTick(() => el.value?.focus())
+}
+
+function focusInput() {
+  focusRef(inputEl)
+}
+
 function append(userMessage: string, systemResponse: string, confirmValue?: string) {
   history.value.push({ message: userMessage, response: systemResponse, confirm: confirmValue })
-  nextTick(() => {
-    if (historyEl.value) {
-      historyEl.value.scrollTo({ top: historyEl.value.scrollHeight, behavior: 'smooth' })
-    }
-  })
 }
 
 function resetConfirm() {
@@ -83,66 +86,10 @@ function resetConfirm() {
   confirmInput.value = ''
 }
 
-function clearConsole() {
-  history.value = []
-  message.value = ''
+function resetMessageAndFocus() {
   resetConfirm()
-  focusInput()
-  scrollBottom()
-}
-
-function onCtrlC() {
-  append(message.value, 'Aborted', confirmInput.value || undefined)
   message.value = ''
-  resetConfirm()
-  focusInput()
-  scrollBottom()
-}
-
-function onEnter() {
-  if (message.value.trim().toLowerCase() === 'clear' && !confirming.value) {
-    clearConsole()
-    return
-  }
-  if (!confirming.value) {
-    if (!message.value.trim()) {
-      append('', 'Error: Message cannot be empty.')
-      focusInput()
-      scrollBottom()
-      return
-    }
-    confirming.value = true
-    focusConfirm()
-  }
-  else {
-    onConfirm()
-  }
-}
-
-function onConfirmInput() {
-  if (confirmInput.value.length === 1) {
-    onConfirm()
-  }
-}
-
-function onConfirm(override: boolean = false) {
-  const val = confirmInput.value.trim().toLowerCase()
-  if (override || val === 'y') {
-    handleSubmit(val)
-    resetConfirm()
-  }
-  else if (val === 'n') {
-    resetConfirm()
-    focusInput()
-  }
-}
-
-function focusInput() {
-  nextTick(() => inputEl.value?.focus())
-}
-
-function focusConfirm() {
-  nextTick(() => confirmEl.value?.focus())
+  focusRef(inputEl)
 }
 
 function autoGrow(e: Event) {
@@ -152,15 +99,67 @@ function autoGrow(e: Event) {
 }
 
 function scrollBottom() {
-  nextTick(() => window.scrollTo({
-    top: document.body.scrollHeight
-  }))
+  nextTick(() => window.scrollTo({ top: document.body.scrollHeight }))
+}
+
+watch(() => history.value.length, async () => {
+  await nextTick()
+  scrollBottom()
+})
+
+// Interaction functions
+function onEnter() {
+  const text = message.value.trim()
+  if (text.toLowerCase() === 'clear' && !confirming.value) {
+    clearConsole()
+    return
+  }
+  if (!confirming.value) {
+    if (!text) {
+      append('', 'Error: Message cannot be empty.')
+      focusRef(inputEl)
+      return
+    }
+    confirming.value = true
+    focusRef(confirmEl)
+    return
+  }
+  onConfirm()
+}
+
+function onConfirm(override: boolean = false) {
+  const val = confirmInput.value.trim().toLowerCase()
+  const decision = override ? 'y' : val
+  if (decision === 'y') {
+    handleSubmit(decision)
+    resetConfirm()
+    focusRef(inputEl)
+    return
+  }
+  if (decision === 'n') {
+    resetConfirm()
+    focusRef(inputEl)
+  }
 }
 
 function handleSubmit(confirmValue?: string) {
   append(message.value, 'Message not sent: Feature is still in development', confirmValue)
-  message.value = ''
-  focusInput()
-  scrollBottom()
+  resetMessageAndFocus()
+}
+
+function onCtrlC() {
+  append(message.value, 'Aborted', confirmInput.value || undefined)
+  resetMessageAndFocus()
+}
+
+function clearConsole() {
+  history.value = []
+  resetMessageAndFocus()
+}
+
+function onConfirmInput() {
+  if (confirmInput.value.length === 1) {
+    onConfirm()
+  }
 }
 </script>
