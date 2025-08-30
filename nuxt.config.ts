@@ -9,20 +9,22 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     'nuxt-mail'
   ],
-  mail: {
-    message: {
-      to: process.env.MAIL_TO,
-      from: process.env.MAIL_FROM ?? process.env.GMAIL_USER
-    },
-    smtp: {
-      host: process.env.GMAIL_HOST ?? 'smtp.gmail.com',
-      port: Number(process.env.GMAIL_PORT ?? 465),
-      secure: (process.env.GMAIL_SECURE ?? 'true') === 'true',
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS
+  runtimeConfig: {
+    mail: {
+      message: {
+        to: process.env.MAIL_TO
+      },
+      smtp: {
+        host: process.env.MAIL_HOST || 'smtp.gmail.com',
+        port: Number(process.env.MAIL_PORT || 465),
+        secure: (process.env.MAIL_SECURE ?? 'true') === 'true',
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS
+        }
       }
-    }
+    },
+    public: {}
   },
   css: ['~/assets/css/main.css'],
   vite: {
