@@ -4,7 +4,7 @@
       <span class="w-2.5 h-2.5 rounded-full bg-red-500 mr-1.5 inline-block" />
       <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 mr-1.5 inline-block" />
       <span class="w-2.5 h-2.5 rounded-full bg-green-500 mr-4 inline-block" />
-      <span class="ml-4 text-sm text-zinc-400 tracking-wider">Contact Terminal</span>
+      <span class="ml-4 text-sm text-zinc-400 tracking-wider">Contact Me</span>
     </div>
     <div>
       <div class="p-4 flex flex-col gap-2">
@@ -18,7 +18,7 @@
           <div v-if="entry.confirm" class="h-5 indent-[19px] mt-2 text-zinc-400">
             Confirm: {{ entry.confirm }}
           </div>
-          <div class="h-5 indent-[19px] mt-2 text-yellow-400">
+          <div class="h-5 indent-[19px] mt-2" :class="responseClass(entry.response)">
             {{ entry.response }}
           </div>
         </div>
@@ -67,7 +67,6 @@ const inputEl = ref<HTMLTextAreaElement | null>(null)
 const confirming = ref(false)
 const confirmInput = ref('')
 const confirmEl = ref<HTMLInputElement | null>(null)
-// Mail composable provided by nuxt-mail
 const mail = useMail()
 
 // Utilities
@@ -102,6 +101,13 @@ function autoGrow(e: Event) {
 
 function scrollBottom() {
   nextTick(() => window.scrollTo({ top: document.body.scrollHeight }))
+}
+
+function responseClass(msg: string): string {
+  const t = msg.toLowerCase()
+  if (t.startsWith('error') || t.includes('failed')) return 'text-red-400'
+  if (t.includes('success')) return 'text-green-400'
+  return 'text-yellow-400'
 }
 
 watch(() => history.value.length, async () => {
@@ -143,7 +149,14 @@ function onConfirm(override: boolean = false) {
   const val = confirmInput.value.trim().toLowerCase()
   const decision = override ? 'y' : val
   if (decision === 'y') {
-    handleSubmit(decision)
+    const message = userInput.value.trim()
+    if (!message) {
+      append('', 'Error: Message cannot be empty.')
+      resetConfirm()
+      focusRef(inputEl)
+      return
+    }
+    handleSubmit(message, decision)
     resetConfirm()
     focusRef(inputEl)
     return
@@ -154,8 +167,10 @@ function onConfirm(override: boolean = false) {
   }
 }
 
-function handleSubmit(confirmValue?: string) {
-  append(userInput.value, 'Sending…', confirmValue)
+function handleSubmit(message: string, confirmValue?: string) {
+  userInput.value = ''
+
+  append(message, 'Sending…', confirmValue)
   const idx = history.value.length - 1
   if (idx < 0) {
     resetMessageAndFocus()
@@ -164,7 +179,7 @@ function handleSubmit(confirmValue?: string) {
   const entry = history.value[idx]!
 
   const subject = 'Portfolio Contact'
-  const text = userInput.value
+  const text = message
 
   if (!mail || typeof (mail as any).send !== 'function') {
     entry.response = 'Error: Mail module unavailable.'
