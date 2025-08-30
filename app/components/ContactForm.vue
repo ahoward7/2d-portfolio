@@ -51,7 +51,7 @@
         <button
           class="w-fit bg-sky-300 text-zinc-900 rounded px-4 py-2 cursor-pointer transition-colors hover:bg-sky-400"
           type="button"
-          @click="onSendClick"
+          @click="onConfirm(true)"
         >
           Send
         </button>
@@ -87,14 +87,16 @@ function clearConsole() {
   history.value = []
   message.value = ''
   resetConfirm()
-  nextTick(() => inputEl.value?.focus())
+  focusInput()
+  scrollBottom()
 }
 
 function onCtrlC() {
   append(message.value, 'Aborted', confirmInput.value || undefined)
   message.value = ''
   resetConfirm()
-  nextTick(() => inputEl.value?.focus())
+  focusInput()
+  scrollBottom()
 }
 
 function onEnter() {
@@ -105,26 +107,15 @@ function onEnter() {
   if (!confirming.value) {
     if (!message.value.trim()) {
       append('', 'Error: Message cannot be empty.')
-      nextTick(() => inputEl.value?.focus())
+      focusInput()
+      scrollBottom()
       return
     }
     confirming.value = true
-    nextTick(() => confirmEl.value?.focus())
+    focusConfirm()
   }
   else {
     onConfirm()
-  }
-}
-
-function onSendClick() {
-  if (!confirming.value) {
-    if (!message.value.trim()) {
-      append('', 'Error: Message cannot be empty.')
-      nextTick(() => inputEl.value?.focus())
-      return
-    }
-    confirming.value = true
-    nextTick(() => confirmEl.value?.focus())
   }
 }
 
@@ -134,35 +125,42 @@ function onConfirmInput() {
   }
 }
 
-function onConfirm() {
+function onConfirm(override: boolean = false) {
   const val = confirmInput.value.trim().toLowerCase()
-  if (val === 'y') {
+  if (override || val === 'y') {
     handleSubmit(val)
     resetConfirm()
   }
   else if (val === 'n') {
     resetConfirm()
-    nextTick(() => inputEl.value?.focus())
+    focusInput()
   }
-}
-
-function handleSubmit(confirmValue?: string) {
-  append(message.value, 'Message not sent: Feature is still in development', confirmValue)
-  message.value = ''
-  nextTick(() => inputEl.value?.focus())
-
-  nextTick(() => window.scrollTo({
-    top: document.body.scrollHeight
-  }))
 }
 
 function focusInput() {
   nextTick(() => inputEl.value?.focus())
 }
 
+function focusConfirm() {
+  nextTick(() => confirmEl.value?.focus())
+}
+
 function autoGrow(e: Event) {
   const el = (e.target as HTMLTextAreaElement)
   el.style.height = 'auto'
-  el.style.height = `${el.scrollHeight  }px`
+  el.style.height = `${el.scrollHeight}px`
+}
+
+function scrollBottom() {
+  nextTick(() => window.scrollTo({
+    top: document.body.scrollHeight
+  }))
+}
+
+function handleSubmit(confirmValue?: string) {
+  append(message.value, 'Message not sent: Feature is still in development', confirmValue)
+  message.value = ''
+  focusInput()
+  scrollBottom()
 }
 </script>
