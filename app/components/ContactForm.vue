@@ -6,7 +6,7 @@
       <span class="w-2.5 h-2.5 rounded-full bg-green-500 mr-4 inline-block" />
       <span class="ml-4 text-sm text-zinc-400 tracking-wider">Contact Me</span>
     </div>
-    <div>
+    <div class="text-sm lg:text-base">
       <div class="p-4 flex flex-col gap-2">
         <div v-for="(entry, index) in history" :key="index">
           <div class="h-5 text-sky-300">

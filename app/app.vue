@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen text-gray-500 font-code">
+  <div class="min-h-screen text-gray-500 font-code p-2 lg:p-4">
     <Header />
     <Intro />
     <Skills />
@@ -13,6 +13,6 @@
 <style>
 body {
   background-color: #000;
-  padding: 16px;
+  /* padding: 16px; */
 }
 </style>
