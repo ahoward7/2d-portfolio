@@ -176,9 +176,8 @@ function handleSubmit(confirmValue?: string) {
     .then(() => {
       entry.response = 'Message sent successfully.'
     })
-    .catch((err: unknown) => {
-      const msg = err instanceof Error ? err.message : 'Unknown error'
-      entry.response = `Failed to send message: ${msg}`
+    .catch((_err: unknown) => {
+      entry.response = 'Failed to send message.'
     })
     .finally(() => {
       resetMessageAndFocus()
