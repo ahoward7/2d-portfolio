@@ -11,7 +11,7 @@
             <span
               v-if="!showSemicolon"
               aria-hidden="true"
-              class="pointer-events-none absolute left-full top-2 lg:top-4 w-1 lg:w-2 h-7 md:h-18 lg:h-24 xl:h-32 bg-[currentColor]"
+              class="pointer-events-none absolute left-full top-2 lg:top-4 w-1 lg:w-2 h-8 md:h-18 lg:h-24 xl:h-32 bg-[currentColor]"
             />
           </span>
           <template #fallback>
