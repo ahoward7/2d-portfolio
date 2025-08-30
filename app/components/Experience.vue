@@ -29,7 +29,7 @@
         <span><CodeProperty>companyName</CodeProperty><CodePunctuation>: </CodePunctuation><CodeString>"Prima International Trading"</CodeString><CodePunctuation>,</CodePunctuation></span>
         <span><CodeProperty>workType</CodeProperty><CodePunctuation>: </CodePunctuation><CodeString>"Freelance Development"</CodeString><CodePunctuation>,</CodePunctuation></span>
         <span><CodeProperty>started</CodeProperty><CodePunctuation>: </CodePunctuation><CodeString>"June 2025"</CodeString><CodePunctuation>,</CodePunctuation></span>
-        <span><CodeProperty>githubLink</CodeProperty><CodePunctuation>: </CodePunctuation><CodeLink url="https://github.com/ahoward7/prima-international">https://github.com/ahoward7/prima-international</CodeLink><CodePunctuation>,</CodePunctuation></span>
+        <span><CodeProperty>githubLink</CodeProperty><CodePunctuation>: </CodePunctuation><CodeLink url="https://github.com/ahoward7/prima-international">github/prima-international</CodeLink><CodePunctuation>,</CodePunctuation></span>
         <span><CodeProperty>responsibilities</CodeProperty><CodePunctuation>: [</CodePunctuation></span>
         <div class="flex flex-col gap-1 pl-2 lg:pl-4">
           <span><CodeString>"Modernizing 25 year old MS Access database application"</CodeString><CodePunctuation>,</CodePunctuation></span>
@@ -46,8 +46,8 @@
         <span><CodeProperty>companyName</CodeProperty><CodePunctuation>: </CodePunctuation><CodeString>"Faith in Action STNY"</CodeString><CodePunctuation>,</CodePunctuation></span>
         <span><CodeProperty>workType</CodeProperty><CodePunctuation>: </CodePunctuation><CodeString>"Freelance Development"</CodeString><CodePunctuation>,</CodePunctuation></span>
         <span><CodeProperty>started</CodeProperty><CodePunctuation>: </CodePunctuation><CodeString>"June 2022"</CodeString><CodePunctuation>,</CodePunctuation></span>
-        <span><CodeProperty>githubLink</CodeProperty><CodePunctuation>: </CodePunctuation><CodeLink url="https://github.com/ahoward7/faith-in-action">https://github.com/ahoward7/faith-in-action</CodeLink><CodePunctuation>,</CodePunctuation></span>
-        <span><CodeProperty>devUrl</CodeProperty><CodePunctuation>: </CodePunctuation><CodeLink url="https://faithinactionstny.netlify.app/">https://faithinactionstny.netlify.app/</CodeLink><CodePunctuation>,</CodePunctuation></span>
+        <span><CodeProperty>githubLink</CodeProperty><CodePunctuation>: </CodePunctuation><CodeLink url="https://github.com/ahoward7/faith-in-action">github/faith-in-action</CodeLink><CodePunctuation>,</CodePunctuation></span>
+        <span><CodeProperty>devUrl</CodeProperty><CodePunctuation>: </CodePunctuation><CodeLink url="https://faithinactionstny.netlify.app/">netlify/faith-in-action/</CodeLink><CodePunctuation>,</CodePunctuation></span>
         <span><CodeProperty>responsibilities</CodeProperty><CodePunctuation>: [</CodePunctuation></span>
         <div class="flex flex-col gap-1 pl-2 lg:pl-4">
           <span><CodeString>"Redoing old informational website for this volunteer organization"</CodeString><CodePunctuation>,</CodePunctuation></span>
